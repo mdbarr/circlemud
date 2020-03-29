@@ -19,4 +19,5 @@ FROM ubuntu:bionic
 WORKDIR /circle-3.1
 COPY --from=0 /circle-3.1 .
 EXPOSE 4000
+VOLUME /circle-3.1/lib
 CMD [ "./autorun.sh" ]
