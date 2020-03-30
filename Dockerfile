@@ -12,7 +12,7 @@ RUN apt-get update && \
         touch .accepted && \
         make
 
-FROM ubuntu:bionic
+FROM alpine
 WORKDIR /circle-3.1
 COPY --from=0 /circle-3.1 .
 EXPOSE 4000
