@@ -249,7 +249,7 @@ int max_bad_pws = 3;
 int siteok_everyone = TRUE;
 
 /*
- * Some nameservers are very slow and cause the game to lag terribly every 
+ * Some nameservers are very slow and cause the game to lag terribly every
  * time someone logs in.  The lag is caused by the gethostbyaddr() function
  * which is responsible for resolving numeric IP addresses to alphabetic names.
  * Sometimes, nameservers can be so slow that the incredible lag caused by
@@ -269,10 +269,10 @@ int nameserver_is_slow = NO;
 
 const char *MENU =
 "\r\n"
-"Welcome to CircleMUD!\r\n"
-"0) Exit from CircleMUD.\r\n"
-"1) Enter the game.\r\n"
-"2) Enter description.\r\n"
+"Welcome to the Hyperingenuity MUD!\r\n"
+"0) Exit from Hyperingenuity MUD.\r\n"
+"1) Enter the game and start playing.\r\n"
+"2) Enter a character description.\r\n"
 "3) Read the background story.\r\n"
 "4) Change password.\r\n"
 "5) Delete this character.\r\n"
@@ -283,13 +283,18 @@ const char *MENU =
 
 const char *WELC_MESSG =
 "\r\n"
-"Welcome to the land of CircleMUD!  May your visit here be... Interesting."
+"Welcome to the Hyperingenuity MUD!  May your visit here be... Interesting."
 "\r\n\r\n";
 
 const char *START_MESSG =
-"Welcome.  This is your new CircleMUD character!  You can now earn gold,\r\n"
-"gain experience, find weapons and equipment, and much more -- while\r\n"
-"meeting people from around the world!\r\n";
+"This is your new Hyperingenuity MUD character!\r\n"
+"You can now earn gold, gain experience, find weapons and equipment,\r\n"
+"and much more...\r\n\r\n"
+"To get started, look at your inventory with \"inv\", put on your newbie\r\n"
+"equipment with \"wear all\", and wield your sword with \"wield sword\".\r\n\r\n"
+"Be sure to consult the \"help\" for additional commands and information.\r\n\r\n"
+"Venture first to the newbie area north of the city which is a great place\r\n"
+"to start exploring and fighting! Good luck!!\r\n\r\n";
 
 /****************************************************************************/
 /****************************************************************************/
