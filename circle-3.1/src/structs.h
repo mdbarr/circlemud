@@ -27,7 +27,7 @@
  * for CircleMUD to be complete but we refuse to break binary file
  * compatibility.
  */
-#define USE_AUTOEQ	0	/* TRUE/FALSE aren't defined yet. */
+#define USE_AUTOEQ	1	/* TRUE/FALSE aren't defined yet. */
 
 
 /* preamble *************************************************************/
@@ -770,7 +770,7 @@ struct char_point_data {
 };
 
 
-/* 
+/*
  * char_special_data_saved: specials which both a PC and an NPC have in
  * common, but which must be saved to the playerfile for PC's.
  *
