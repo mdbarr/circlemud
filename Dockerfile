@@ -10,6 +10,7 @@ RUN apt-get update && \
         ./configure && \
         cd src && \
         touch .accepted && \
+        make clean && \
         make
 
 FROM alpine

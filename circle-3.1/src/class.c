@@ -29,6 +29,8 @@
 
 extern int siteok_everyone;
 
+void obj_to_char(struct obj_data *object, struct char_data *ch);
+
 /* local functions */
 void snoop_check(struct char_data *ch);
 int parse_class(char arg);
@@ -1460,7 +1462,7 @@ void roll_real_abils(struct char_data *ch)
   ch->aff_abils = ch->real_abils;
 }
 
-void do_newbie(struct char_data *vict)
+void do_newbie(struct char_data *ch)
 {
   struct obj_data *obj;
   int give_obj[] = {2544, 5423, 3071, 3076, 3081, 3086, 6002, 7211, 3104, 3009, 3009, -1};
@@ -1469,8 +1471,10 @@ void do_newbie(struct char_data *vict)
 
   for (i = 0; give_obj[i] != -1; i++) {
     obj = read_object(give_obj[i], VIRTUAL);
-    obj_to_char(obj, vict);
+    obj_to_char(obj, ch);
   }
+
+  SET_BIT(PRF_FLAGS(ch), PRF_DISPHP | PRF_DISPMANA | PRF_DISPMOVE | PRF_AUTOEXIT);
 }
 
 /* Some initializations for characters, including initial skills */
