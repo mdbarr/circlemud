@@ -163,7 +163,7 @@ void show_obj_modifiers(struct obj_data *obj, struct char_data *ch)
 }
 
 
-void list_obj_to_char(struct obj_data *list, struct char_data *ch, int mode, int show)
+void list_obj_to_char_old(struct obj_data *list, struct char_data *ch, int mode, int show)
 {
   struct obj_data *i;
   bool found = FALSE;
@@ -178,6 +178,42 @@ void list_obj_to_char(struct obj_data *list, struct char_data *ch, int mode, int
     send_to_char(ch, " Nothing.\r\n");
 }
 
+void list_obj_to_char(struct obj_data *list, struct char_data *ch, int mode, int show)
+{
+  struct obj_data *i, *j;
+  char buf[10];
+  bool found;
+  int num;
+
+  found = FALSE;
+  for (i = list; i; i = i->next_content) {
+      num = 0;
+      for (j = list; j != i; j = j->next_content)
+        if (j->item_number==NOTHING) {
+          if(strcmp(j->short_description,i->short_description)==0)
+          break;
+        }
+        else if (j->item_number==i->item_number)
+          break;
+        if (j!=i)
+          continue;
+        for (j = i; j; j = j->next_content)
+          if (j->item_number==NOTHING) {
+            if(strcmp(j->short_description,i->short_description)==0)
+              num++;
+          }
+          else if (j->item_number==i->item_number)
+              num++;
+          if (CAN_SEE_OBJ(ch, i)) {
+            if (num!=1)
+              send_to_char(ch, "(%2i) ", num);
+          show_obj_to_char(i, ch, mode);
+          found = TRUE;
+          }
+      }
+    if (!found && show)
+    send_to_char(ch, " Nothing.\r\n");
+}
 
 void diag_char_to_char(struct char_data *i, struct char_data *ch)
 {
