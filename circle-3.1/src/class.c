@@ -116,7 +116,7 @@ bitvector_t find_class_bitvector(const char *arg)
  * a character of the class is allowed to attain in any skill.  (After
  * this level, attempts to practice will say "You are already learned in
  * this area."
- * 
+ *
  * The second line controls the maximum percent gain in learnedness a
  * character is allowed per practice -- in other words, if the random
  * die throw comes out higher than this number, the gain will only be
@@ -126,7 +126,7 @@ bitvector_t find_class_bitvector(const char *arg)
  * character is allowed per practice -- in other words, if the random
  * die throw comes out below this number, the gain will be set up to
  * this number.
- * 
+ *
  * The fourth line simply sets whether the character knows 'spells'
  * or 'skills'.  This does not affect anything except the message given
  * to the character when trying to practice (i.e. "You know of the
@@ -973,7 +973,7 @@ byte saving_throws(int class_num, int type, int level)
       case 50: return  0;
       default:
 	log("SYSERR: Missing level for warrior paralyzation saving throw.");
-	break;	
+	break;
       }
     case SAVING_ROD:	/* Rods */
       switch (level) {
@@ -1460,6 +1460,21 @@ void roll_real_abils(struct char_data *ch)
   ch->aff_abils = ch->real_abils;
 }
 
+void do_newbie(struct char_data *vict)
+{
+  struct obj_data *obj;
+  int give_obj[] = {2544, 5423, 3071, 3076, 3081, 3086, 6002, 7211, 3104, 3015, 3015, -1};
+
+  int i;
+
+  for (i = 0; give_obj[i] != -1; i++) {
+    obj = read_object(give_obj[i], VIRTUAL);
+    obj_to_char(obj, vict);
+  }
+
+  GET_GOLD(vict) += 25;
+  GET_BANK_GOLD(vict) += 50;
+}
 
 /* Some initializations for characters, including initial skills */
 void do_start(struct char_data *ch)
@@ -1888,7 +1903,7 @@ int level_exp(int chclass, int level)
 }
 
 
-/* 
+/*
  * Default titles of male characters.
  */
 const char *title_male(int chclass, int level)
@@ -2035,7 +2050,7 @@ const char *title_male(int chclass, int level)
 }
 
 
-/* 
+/*
  * Default titles of female characters.
  */
 const char *title_female(int chclass, int level)
@@ -2180,4 +2195,3 @@ const char *title_female(int chclass, int level)
   /* Default title for classes which do not have titles defined */
   return "the Classless";
 }
-

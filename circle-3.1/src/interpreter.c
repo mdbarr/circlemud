@@ -45,6 +45,7 @@ extern int max_bad_pws;
 void echo_on(struct descriptor_data *d);
 void echo_off(struct descriptor_data *d);
 void do_start(struct char_data *ch);
+void do_newbie(struct char_data *vict);
 int parse_class(char arg);
 int special(struct char_data *ch, int cmd, char *arg);
 int isbanned(char *hostname);
@@ -1031,7 +1032,7 @@ char *two_arguments(char *argument, char *first_arg, char *second_arg)
  * (now works symmetrically -- JE 7/25/94)
  *
  * that was dumb.  it shouldn't be symmetrical.  JE 5/1/95
- * 
+ *
  * returns 1 if arg1 is an abbreviation of arg2
  */
 int is_abbrev(const char *arg1, const char *arg2)
@@ -1586,6 +1587,7 @@ void nanny(struct descriptor_data *d, char *arg)
       STATE(d) = CON_PLAYING;
       if (GET_LEVEL(d->character) == 0) {
 	do_start(d->character);
+        do_newbie(d->character);
 	send_to_char(d->character, "%s", START_MESSG);
       }
       look_at_room(d->character, 0);
