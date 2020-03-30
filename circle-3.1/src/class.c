@@ -1463,7 +1463,7 @@ void roll_real_abils(struct char_data *ch)
 void do_newbie(struct char_data *vict)
 {
   struct obj_data *obj;
-  int give_obj[] = {2544, 5423, 3071, 3076, 3081, 3086, 6002, 7211, 3104, 3015, 3015, -1};
+  int give_obj[] = {2544, 5423, 3071, 3076, 3081, 3086, 6002, 7211, 3104, 3009, 3009, -1};
 
   int i;
 
@@ -1471,9 +1471,6 @@ void do_newbie(struct char_data *vict)
     obj = read_object(give_obj[i], VIRTUAL);
     obj_to_char(obj, vict);
   }
-
-  GET_GOLD(vict) += 25;
-  GET_BANK_GOLD(vict) += 50;
 }
 
 /* Some initializations for characters, including initial skills */
@@ -1481,6 +1478,9 @@ void do_start(struct char_data *ch)
 {
   GET_LEVEL(ch) = 1;
   GET_EXP(ch) = 1;
+
+  GET_GOLD(ch) = 25;
+  GET_BANK_GOLD(ch) = 50;
 
   set_title(ch, NULL);
   roll_real_abils(ch);
