@@ -1,15 +1,12 @@
 FROM ubuntu:bionic
 WORKDIR /
+COPY circle-3.1 circle-3.1
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         autoconf \
         automake \
-        build-essential \
-        ca-certificates \
-        wget && \
-        wget https://www.circlemud.org/pub/CircleMUD/3.x/circle-3.1.tar.gz && \
-        tar -zxvf circle-3.1.tar.gz && \
-        cd circle-3.1 && \
+        build-essential && \
+        cd /circle-3.1 && \
         ./configure && \
         cd src && \
         touch .accepted && \
