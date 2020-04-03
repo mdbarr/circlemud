@@ -74,6 +74,7 @@ ACMD(do_bash);
 ACMD(do_cast);
 ACMD(do_color);
 ACMD(do_commands);
+ACMD(do_compare);
 ACMD(do_consider);
 ACMD(do_credits);
 ACMD(do_date);
@@ -251,6 +252,7 @@ cpp_extern const struct command_info cmd_info[] = {
   { "comb"     , POS_RESTING , do_action   , 0, 0 },
   { "commands" , POS_DEAD    , do_commands , 0, SCMD_COMMANDS },
   { "compact"  , POS_DEAD    , do_gen_tog  , 0, SCMD_COMPACT },
+  { "compare"  , POS_RESTING , do_compare  , 0, 0 },
   { "cough"    , POS_RESTING , do_action   , 0, 0 },
   { "credits"  , POS_DEAD    , do_gen_ps   , 0, SCMD_CREDITS },
   { "cringe"   , POS_RESTING , do_action   , 0, 0 },

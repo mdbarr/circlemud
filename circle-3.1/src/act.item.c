@@ -690,7 +690,7 @@ ACMD(do_give)
       send_to_char(ch, "What do you want to give %d of?\r\n", amount);
     else if (!(vict = give_find_vict(ch, argument)))
       return;
-    else if (!(obj = get_obj_in_list_vis(ch, arg, NULL, ch->carrying))) 
+    else if (!(obj = get_obj_in_list_vis(ch, arg, NULL, ch->carrying)))
       send_to_char(ch, "You don't seem to have any %ss.\r\n", arg);
     else {
       while (obj && amount--) {
@@ -1464,4 +1464,102 @@ ACMD(do_remove)
     else
       perform_remove(ch, i);
   }
+}
+
+
+
+ACMD(do_compare)
+{
+    char arg1[MAX_STRING_LENGTH];
+    char arg2[MAX_STRING_LENGTH];
+    struct obj_data *obj1;
+    struct obj_data *obj2;
+    int value1;
+    int value2;
+    char *msg;
+
+    argument = one_argument( argument, arg1 );
+    argument = one_argument( argument, arg2 );
+    if ( arg1[0] == '\0' )
+    {
+        send_to_char(ch, "Compare what to what?\n\r");
+        return;
+    }
+
+    if (!(obj1 = get_obj_in_list_vis(ch, arg1, NULL, ch->carrying)))
+    {
+        send_to_char(ch, "You do not have that item.\n\r");
+        return;
+    }
+
+    if (arg2[0] == '\0')
+    {
+        for (obj2 = ch->carrying; obj2; obj2 = obj2->next_content)
+        {
+            if ( !((obj2->obj_flags.type_flag == ITEM_WEAPON) ||
+                   (obj2->obj_flags.type_flag == ITEM_FIREWEAPON) ||
+                   (obj2->obj_flags.type_flag == ITEM_ARMOR) ||
+                   (obj2->obj_flags.type_flag == ITEM_WORN))
+            &&   CAN_SEE_OBJ(ch, obj2)
+            &&   obj1->obj_flags.type_flag == obj2->obj_flags.type_flag
+            && CAN_GET_OBJ(ch, obj2) )
+                break;
+        }
+
+        if (!obj2)
+        {
+            send_to_char( "You aren't wearing anything comparable.\n\r", ch );
+            return;
+        }
+    }
+    else
+    {
+            if (!(obj2 = get_obj_in_list_vis(ch, arg2, NULL, ch->carrying)))
+        {
+            send_to_char(ch, "You do not have that item.\n\r");
+            return;
+        }
+    }
+
+    msg         = NULL;
+    value1      = 0;
+    value2      = 0;
+
+    if (obj1 == obj2)
+    {
+        msg = "You compare $p to itself.  It looks about the same.";
+    }
+    else if ( obj1->obj_flags.type_flag != obj2->obj_flags.type_flag )
+    {
+        msg = "You can't compare $p and $P.";
+    }
+    else
+    {
+        switch (obj1->obj_flags.type_flag)
+        {
+        default:
+            msg = "You can't compare $p and $P.";
+            break;
+
+        case ITEM_ARMOR:
+            value1 = obj1->obj_flags.value[0];
+            value2 = obj2->obj_flags.value[0];
+            break;
+
+        case ITEM_WEAPON:
+            value1 = obj1->obj_flags.value[1] + obj1->obj_flags.value[2];
+            value2 = obj2->obj_flags.value[1] + obj2->obj_flags.value[2];
+            break;
+        }
+    }
+
+    if (!msg)
+    {
+             if (value1 == value2) msg = "$p and $P look about the same.";
+        else if (value1  > value2) msg = "$p looks better than $P.";
+        else                         msg = "$p looks worse than $P.";
+    }
+
+    act(msg, FALSE, ch, obj1, obj2, TO_CHAR);
+    return;
 }
