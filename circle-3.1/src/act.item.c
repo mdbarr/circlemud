@@ -1508,7 +1508,7 @@ ACMD(do_compare)
 
         if (!obj2)
         {
-            send_to_char( "You aren't wearing anything comparable.\n\r", ch );
+          send_to_char(ch,  "You aren't wearing anything comparable.\n\r");
             return;
         }
     }
