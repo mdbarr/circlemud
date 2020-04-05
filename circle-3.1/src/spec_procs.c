@@ -126,15 +126,10 @@ void list_skills(struct char_data *ch)
   size_t len = 0;
   char buf2[MAX_STRING_LENGTH];
 
-  if (!GET_PRACTICES(ch)) {
-    send_to_char(ch, "You have no practice sessions remaining.\r\n");
-    return;
-  }
-
-  len = snprintf(buf2, sizeof(buf2), "You have %d practice session%s remaining.\r\n"
+  len = snprintf(buf2, sizeof(buf2), "You have %d practice session%s remaining.\r\n\r\n"
 	"You know of the following %ss:\r\n", GET_PRACTICES(ch),
 	GET_PRACTICES(ch) == 1 ? "" : "s", SPLSKL(ch));
-  
+
   for (sortpos = 1; sortpos <= MAX_SKILLS; sortpos++) {
     i = spell_sort_info[sortpos];
     if (GET_LEVEL(ch) >= spell_info[i].min_level[(int) GET_CLASS(ch)]) {
@@ -149,6 +144,7 @@ void list_skills(struct char_data *ch)
 
   page_string(ch->desc, buf2, TRUE);
 }
+
 
 
 SPECIAL(guild)
@@ -752,4 +748,3 @@ SPECIAL(bank)
   } else
     return (FALSE);
 }
-
