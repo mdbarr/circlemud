@@ -3,7 +3,7 @@ Circle MUD 3.1 Docker Image
 
 ## Building
 ```bash
-docker build -t circle:3.1 .
+docker build -t circlemud:3.1 .
 ```
 
 ## Running
